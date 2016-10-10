@@ -33,61 +33,61 @@
 				<?= $medium->description; ?>
 				</td>
 				<td>
-				
-				<!-- button to view mediatyp -->
-				<?=
-					$this->Html->link(
-						$this->Html->tag(
+					<div class="btn-group" role="group" aria-label="btn-action-grp">
+						<!-- button to view mediatyp -->
+						<?=
+							$this->Html->link(
+								$this->Html->tag(
 							'span',
 							'', [
 								'class'			=> 'glyphicon glyphicon-eye-open'
 							]
-						), [
-							'action'		=> 'view',
-							$medium->id
-					], [
-						'escape'		=> false,
-						'class'			=> 'btn btn-xs btn-info'
-					])
-				?>
-				<!-- /button to view mediatyp -->
-				
-				<!-- button to edit mediatyp -->
-				<?=
-					$this->Html->link(
-						$this->Html->tag(
-							'span',
-							'', [
-								'class'			=> 'glyphicon glyphicon-pencil'
-							]
-						), [
-							'action'		=> 'edit',
-							$medium->id
-					], [
-						'escape'		=> false,
-						'class'			=> 'btn btn-xs btn-warning'
-					])
-				?>
-				<!-- /button to edit mediatyp -->
-				
-				<!-- button to delete mediatyp -->
-				<?=
-					$this->Html->link(
-						$this->Html->tag(
-							'span',
-							'', [
-								'class'			=> 'glyphicon glyphicon-trash'
-							]
-						), [
-							'action'		=> 'delete',
-							$medium->id
-					], [
-						'escape'		=> false,
-						'class'			=> 'btn btn-xs btn-danger'
-					])
-				?>
-				<!-- /button to delete mediatyp -->
-				
+							), [
+								'action'		=> 'view',
+								$medium->id
+							], [
+								'escape'		=> false,
+								'class'			=> 'btn btn-xs btn-info'
+							])
+						?>
+						<!-- /button to view mediatyp -->
+						
+						<!-- button to edit mediatyp -->
+						<!--<?=
+							$this->Html->link(
+								$this->Html->tag(
+									'span',
+									'', [
+										'class'			=> 'glyphicon glyphicon-pencil'
+									]
+								), [
+									'action'		=> 'edit',
+									$medium->id
+							], [
+								'escape'		=> false,
+								'class'			=> 'btn btn-xs btn-default'
+							])
+						?>
+						<!-- /button to edit mediatyp -->
+						
+						<!-- button to delete mediatyp -->
+						<!--<?=
+							$this->Html->link(
+								$this->Html->tag(
+									'span',
+									'', [
+										'class'			=> 'glyphicon glyphicon-trash'
+									]
+								), [
+									'action'		=> 'delete',
+									$medium->id
+							], [
+								'escape'		=> false,
+								'class'			=> 'btn btn-xs btn-danger'
+							])
+						?>
+						<!-- /button to delete mediatyp -->
+					</div>
 				</td>
 			</tr>
 			<?php endforeach; ?>

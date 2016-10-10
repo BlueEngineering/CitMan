@@ -21,13 +21,100 @@
 			<?php foreach( $works as $work ): ?>
 			<tr>
 				<td>
-					<?= $work->title; ?>
+					<?=
+					$this->Html->link(
+					   $work->title,
+					   [
+					       'action'    => 'view',
+					       $work->id
+					   ]
+                    );
+                    
+					; 
+				    ?>
 				</td>
+				
 				<td>
 					<!-- Autoren einzeln als Array und dann im View konkatienieren via , und Name mit Link unterlegt -->
-					<?= $work->authors; ?>
+					<?php
+					foreach($work->authors as $author) {
+					    if( $author["id"] != 0 ) {
+    					    echo $this->Html->link(
+    					       $author["name"],
+    					       [
+    					           'controller'    => 'authors',
+    					           'action'        => 'view',
+    					           $author["id"]
+    					       ],
+    					       [
+    					           'escape'        => false,
+    					           'class'         => ''
+    					       ]
+                            );
+                        } else {
+                            echo $author["name"];
+                        }
+                        echo "<br />";
+					}
+					?>
 				</td>
+				
 				<td>
+					<div class="btn-group" role="group" aria-label="btn-action-grp">
+					    <!-- button to view author -->
+	                    <?=
+	                        $this->Html->link(
+	                            $this->Html->tag(
+                                'span',
+                                '', [
+                                    'class'         => 'glyphicon glyphicon-eye-open'
+                                ]
+                            ), [
+                                'action'        => 'view',
+                                $work->id
+                        ], [
+                            'escape'        => false,
+                            'class'         => 'btn btn-xs btn-default'
+                        ])
+                    	?>
+	                    <!-- /button to view author -->
+	                    
+	                    <!-- button to edit author -->
+	                    <!--<?=
+	                        $this->Html->link(
+	                            $this->Html->tag(
+                                'span',
+                                '', [
+                                    'class'         => 'glyphicon glyphicon-pencil'
+                                ]
+                            ), [
+                                'action'        => 'edit',
+                                $work->id
+                        ], [
+                            'escape'        => false,
+                            'class'         => 'btn btn-xs btn-default'
+                        ])
+                   	 	?>
+	                    <!-- /button to edit author -->
+	                    
+	                    <!-- button to delete author -->
+	                    <!--<?=
+	                        $this->Html->link(
+	                            $this->Html->tag(
+                                'span',
+                                '', [
+                                    'class'         => 'glyphicon glyphicon-trash'
+                                ]
+                            ), [
+                                'action'        => 'delete',
+                                $work->id
+                        ], [
+                            'escape'        => false,
+                            'class'         => 'btn btn-xs btn-danger'
+                        ])
+                    	?>
+	                    <!-- /button to delete author -->
+	                    </div>
 				</td>
 			</tr>			
 			<?php endforeach; ?>
@@ -41,14 +128,44 @@
 
 <!-- Pagination -->
 <div align="center">
-	<ul class="pagination">
-		<li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-		<li><a href="#">1</a></li>
-		<li><a href="#">2</a></li>
-		<li><a href="#">3</a></li>
-		<li><a href="#">4</a></li>
-		<li><a href="#">5</a></li>
-		<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-	</ul>
+    <nav>
+        <ul class="pagination">
+            <?php
+            echo $this->Paginator->prev(
+                $this->Html->tag(
+                    'span',
+                    '&laquo;',
+                    [
+                        'class'         => '',
+                        'aria-hidden'   => 'true'
+                    ]
+                ),
+                [
+                    'class'         => '',
+                    'aria-label'    => 'Prev',
+                    'escape'        => false
+                ]
+            );
+            
+            echo $this->Paginator->numbers();
+            
+            echo $this->Paginator->next(
+                $this->Html->tag(
+                    'span',
+                    '&raquo;',
+                    [
+                        'class'         => '',
+                        'aria-hidden'   => 'true'
+                    ]
+                ),
+                [
+                    'class'         => '',
+                    'aria-label'    => 'Next',
+                    'escape'        => false
+                ]
+            );
+            ?>
+        </ul>
+    </nav>
 </div>
 <!-- /Pagination -->

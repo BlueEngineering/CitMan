@@ -1,27 +1,39 @@
-<div class="page-header">
-	<h1>Liste der erfassten Zitate</h1>
+<div class="row">
+	<div class="page-header">
+		<h1>Liste der erfassten Zitate</h1>
+	</div>
 </div>
 
-<div>
+<div class="row">
 	<table class="table table-hover table-striped" id="tblCitationResult">
 		<tr id="tblRowHead">
 			<th>Zitat</th>
 			<th>Werk</th>
 			<th>Autor</th>
 			<th>Tags</th>
+			<th>Aktionen</th>
 		</tr>
 		
-		<thead id="tblRowFilter">
-		<tr>
-			<td>Zitat</td><!--input type="text" class="form-control" placeholder="Schlagwortfilter" name="filterCitCitation" id="filterCitCitations" /-->
-			<td>Werk</td><!--input type="text" class="form-control" placeholder="Schlagwortfilter" name="filterCitWorks" id="filterCitWorks" /-->
-			<td>Autor</td><!--input type="text" class="form-control" placeholder="Schlagwortfilter" name="filterCitAuthors" id="filterCitAuthors" /-->
-			<td>Tag</td><!--input type="text" class="form-control" placeholder="Schlagwortfilter" name="filterCitTags" id="filterCitTags" /-->
+		<!--
+		TODO 
+		<tr id="tblRowFilter">
+			<td>
+				<input type="text" class="form-control" placeholder="Schlagwortfilter" name="filterCitCitation" id="filterCitCitations" />
+			</td>
+			<td>
+				<input type="text" class="form-control" placeholder="Schlagwortfilter" name="filterCitWorks" id="filterCitWorks" />
+			</td>
+			<td>
+				<input type="text" class="form-control" placeholder="Schlagwortfilter" name="filterCitAuthors" id="filterCitAuthors" />
+			</td>
+			<td>
+				<input type="text" class="form-control" placeholder="Schlagwortfilter" name="filterCitTags" id="filterCitTags" />
+			</td>
+			<td></td>
 		</tr>
-		</thead>
+		 -->
 		
-		<!--tbody id="tblCitationBody"-->
-		<tbody>
+		<tbody id="tblCitationBody">
 			<?php foreach( $rows as $row ) : ?>
 			<tr>
 				<td>
@@ -33,7 +45,11 @@
 				<td>
 					<?php
 						for( $i = 0; $i < count( $row["authors"] ); $i++ ) {
-							echo '<a href="authors/view/' . $row["authors"][$i]['id'] . '">' . $row["authors"][$i]['name'] . '</a><br />';
+						    if( $row["authors"][$i]['id'] != '0' ) {
+						        echo '<a href="authors/view/' . $row["authors"][$i]['id'] . '">' . $row["authors"][$i]['name'] . '</a><br />';
+						    } else {
+						        echo $row["authors"][$i]['name'] . '<br />';
+						    }
 						}
 					?>
 				</td>
@@ -43,6 +59,121 @@
 							echo '<a href="tags/view/' . $row["tags"][$i]["id"] . '"><span class="label label-primary btn-primary">' . $row["tags"][$i]["name"] . '</span></a> ';
 						}
 					?>
+				</td>
+				<td align="center">
+					<div class="btn-group" role="group" aria-label="btn-action-grp">
+						<?php
+						// check is citation on favoritlist and set action and css class
+						if( in_array( $row['id'], $this->request->session()->read( 'FavList.items' ) ) )  {
+							echo $this->Html->link(
+								$this->Html->tag(
+									'span',
+									'',
+									[
+										'class'			=> 'glyphicon glyphicon-paperclip'
+									]
+								),
+								[
+									'controller'	=> 'favoritlists',
+									'action'		=> 'removecitationfromfavlist',
+									$row['id']
+								],
+								[
+									'class'			=> 'btn btn-primary btn-xs',
+									'escape'		=> false
+								]
+							);
+						} else {
+							echo $this->Html->link(
+								$this->Html->tag(
+									'span',
+									'',
+									[
+										'class'			=> 'glyphicon glyphicon-paperclip'
+									]
+								),
+								[
+									'controller'	=> 'favoritlists',
+									'action'		=> 'addcitationtofavlist',
+									$row['id']
+								],
+								[
+									'class'			=> 'btn btn-default btn-xs',
+									'escape'		=> false
+								]
+							);
+						}
+						?>
+						
+						<!--
+						<?=
+						$this->Html->link(
+							$this->Html->tag(
+								'span',
+								'',
+								[
+									'class'			=> 'glyphicon glyphicon-eye-open'
+								]
+							),
+							[
+								'controller'	=> 'citations',
+								'action'		=> 'view',
+								$row['id']
+							],
+							[
+								'class'			=> 'btn btn-default btn-xs',
+								'escape'		=> false
+							]
+						)
+						?>
+						-->
+						
+						<!--
+						<?=
+						$this->Html->link(
+							$this->Html->tag(
+								'span',
+								'',
+								[
+									'class'			=> 'glyphicon glyphicon-pencil'
+								]
+							),
+							[
+								'controller'	=> 'citations',
+								'action'		=> 'edit',
+								$row['id']
+							],
+							[
+								'class'			=> 'btn btn-default btn-xs',
+								'escape'		=> false
+							]
+						)
+						?>
+						-->
+						
+						<!--
+						<?=
+						$this->Html->link(
+							$this->Html->tag(
+								'span',
+								'',
+								[
+									'class'			=> 'glyphicon glyphicon-trash'
+								]
+							),
+							[
+								'controller'	=> 'citations',
+								'action'		=> 'delete',
+								$row['id']
+							],
+							[
+								'class'			=> 'btn btn-danger btn-xs',
+								'escape'		=> false
+							]
+						)
+						?>
+						-->
+					</div>
 				</td>
 			</tr>
 			<?php endforeach; ?>
@@ -55,29 +186,6 @@
 <script>
 	// wait until document is ready loaded
 	if( $( document ).ready() ) {
-		// Setup - add a text input to each footer cell
-	    $('#tblRowFilter tr td').each( function () {
-	        var title = $(this).text();
-	        $(this).html( '<input type="text" class="form-control" placeholder="Suche ' + title + '" />' );
-	    } );
-	 
-	    // DataTable
-	    var table = $('#tblCitationResult').DataTable();
-	 
-	    // Apply the search
-	    table.columns().every( function () {
-	        var that = this;
-	 
-	        $( 'input', this.header() ).on( 'keyup change', function () {
-	            if ( that.search() !== this.value ) {
-	                that
-	                    .search( this.value )
-	                    .draw();
-	            }
-	        } );
-	    } );
-		
-		/*
 		// ToDo: UND Verknüpfung zwischen den einzelnen Inputfeldern wenn diese Nicht-Leer sind.
 		//
 		$( "#filterCitCitations" ).keyup( function() {
@@ -137,7 +245,6 @@
 				rows.show();
 			}
 		} );
-		*/
 	}
 </script>
 <!-- /building data rows with JavaScript -->

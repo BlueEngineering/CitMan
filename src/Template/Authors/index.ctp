@@ -24,73 +24,75 @@
 			<tr>
 				<td>
 					<?=
-						$this->Html->link( $author["forename"] . " " .$author["name"], [
+						$this->Html->link( $author->forename . " " .$author->name, [
 							'action'	=> 'view',
-							$author["id"]
+							$author->id
 						] );
 					
 					?>
 				</td>
 				<td>
-					<?= $author["borndate"]; ?>
+					<?= $author->born; ?>
 				</td>
 				<td>
-					<?= $author["deaddate"]; ?>
+					<?= $author->dead; ?>
 				</td>
 				<td>
-					<!-- button to view mediatyp -->
-					<?=
-						$this->Html->link(
-							$this->Html->tag(
+					<div class="btn-group" role="group" aria-label="btn-action-grp">
+						<!-- button to view author -->
+						<?=
+							$this->Html->link(
+								$this->Html->tag(
 								'span',
 								'', [
 									'class'			=> 'glyphicon glyphicon-eye-open'
 								]
 							), [
 								'action'		=> 'view',
-								$author["id"]
+								$author->id
 						], [
 							'escape'		=> false,
-							'class'			=> 'btn btn-xs btn-info'
+							'class'			=> 'btn btn-xs btn-default'
 						])
-					?>
-					<!-- /button to view mediatyp -->
-					
-					<!-- button to edit mediatyp -->
-					<?=
-						$this->Html->link(
-							$this->Html->tag(
+						?>
+						<!-- /button to view author -->
+						
+						<!-- button to edit author -->
+						<!-- <?=
+							$this->Html->link(
+								$this->Html->tag(
 								'span',
 								'', [
 									'class'			=> 'glyphicon glyphicon-pencil'
 								]
 							), [
 								'action'		=> 'edit',
-								$author["id"]
+								$author->id
 						], [
 							'escape'		=> false,
-							'class'			=> 'btn btn-xs btn-warning'
+							'class'			=> 'btn btn-xs btn-default'
 						])
-					?>
-					<!-- /button to edit mediatyp -->
-					
-					<!-- button to delete mediatyp -->
-					<?=
-						$this->Html->link(
-							$this->Html->tag(
+						?>
+						<!-- /button to edit author -->
+						
+						<!-- button to delete author -->
+						<!--<?=
+							$this->Html->link(
+								$this->Html->tag(
 								'span',
 								'', [
 									'class'			=> 'glyphicon glyphicon-trash'
 								]
 							), [
 								'action'		=> 'delete',
-								$author["id"]
+								$author->id
 						], [
 							'escape'		=> false,
 							'class'			=> 'btn btn-xs btn-danger'
 						])
-					?>
-					<!-- /button to delete mediatyp -->
+						?>
+						<!-- /button to delete author -->
+					</div>
 				</td>
 			</tr>
 			<?php endforeach; ?>
@@ -102,24 +104,44 @@
 
 <!-- Pagination -->
 <div align="center">
-	<nav>
-		<ul class="pagination">
-			<li>
-				<a href="#" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				</a>
-			</li>
-			
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			
-			<li>
-				<a href="#" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				</a>
-			</li>
-		</ul>
-	</nav>
+    <nav>
+        <ul class="pagination">
+            <?php
+            echo $this->Paginator->prev(
+                $this->Html->tag(
+                    'span',
+                    '&laquo;',
+                    [
+                        'class'         => '',
+                        'aria-hidden'   => 'true'
+                    ]
+                ),
+                [
+                    'class'         => '',
+                    'aria-label'    => 'Prev',
+                    'escape'        => false
+                ]
+            );
+            
+            echo $this->Paginator->numbers();
+            
+            echo $this->Paginator->next(
+                $this->Html->tag(
+                    'span',
+                    '&raquo;',
+                    [
+                        'class'         => '',
+                        'aria-hidden'   => 'true'
+                    ]
+                ),
+                [
+                    'class'         => '',
+                    'aria-label'    => 'Next',
+                    'escape'        => false
+                ]
+            );
+            ?>
+        </ul>
+    </nav>
 </div>
 <!-- /Pagination -->

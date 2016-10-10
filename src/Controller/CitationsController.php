@@ -3,23 +3,34 @@
  * Controller of Citations datamodel
  *
  * @Author Tim Jaap <dev@ascony.de>
- * @Version 1.01 (last update 05.08.2016)
+ * @Version 1.01 (last update 23.08.2016)
  */
  
 namespace App\Controller;
 
 use Cake\Controller\Controller;
-use Cake\ORM\TableRegistry;
+//use Cake\ORM\TableRegistry;
+use Cake\Network\Session;
 
 class CitationsController extends AppController {
-
+    // controller variables
+    
+    /**
+     * init all components
+     *
+     * @return void
+     */
 	public function initialize() {
 		parent::initialize();
 		
 		$this->loadComponent('Flash');
 	}
 	
-	// list all existing citations
+    /**
+     * list all existing citations
+     *
+     * @return void
+     **/
 	public function index() {
 		// loading external models
 		$this->loadModel( 'Works' );
@@ -27,7 +38,7 @@ class CitationsController extends AppController {
 		$this->loadModel( 'Authors' );
 		$this->loadModel( 'CitationsTags' );
 		$this->loadModel( 'Tags' );
-		
+				
 		// view data variable
 		$rows		= array();
 		
@@ -94,7 +105,9 @@ class CitationsController extends AppController {
 	}
 		
 	
-	// create a new citation
+	/**
+	 * create a new citation
+	 */
 	public function create() {
 		// loading external models
 		$this->loadModel( 'media' );
@@ -241,10 +254,15 @@ class CitationsController extends AppController {
 	}
 	
 	
-	// edit an existing citation
+	/**
+	 * edit an existing citation
+	 */
 	public function edit( $id ) {
+        // TODO
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
+        
 		/**
-		 * ToDo:
+		 * TODO:
 		 1.) Änderungen an Zitaten werden versioniert.
 		 	=> Neues Zitat + Timestamp in Datenbank
 		 2.) In Favoritenliste des Benutzers das alte Zitat durch die neue Version ersetzen.
@@ -253,8 +271,13 @@ class CitationsController extends AppController {
 	}
 	
 	
-	//
+	/**
+	 * 
+	 */
 	public function view( $id ) {
+        // TODO
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
+        
 		/**
 		ToDo:
 		1.) Daten des Zitats anzeigen
@@ -265,18 +288,37 @@ class CitationsController extends AppController {
 	}
 	
 	
-	// return all citations where including the search expression
-	public function search( $expr ) {
+	/**
+	 * 
+	 */
+	public function delete( $id ) {
+        // TODO
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
 	}
 	
 	
-	// test
+	/**
+	 * return all citations where including the search expression
+	 */
+	public function search( $expr ) {
+		// TODO
+	}
+	
+	
+	/**
+	 * test
+	 */
 	public function ajaxGetCitationsByWorksId() {
+        // TODO
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
+        
 		return "fubar";
 	}
 	
 	
-	// list all existing citations (JSON format)
+	/**
+	 * list all existing citations (JSON format)
+	 */
 	/*
 	public function indexJSON() {
 		// loading external models

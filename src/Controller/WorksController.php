@@ -1,9 +1,9 @@
 <?php
 /**
- * Controller of Media datamodel
+ * Controller of Works datamodel
  *
  * @Author Tim Jaap <dev@ascony.de>
- * @Version 1.0 (last update 04.08.2016)
+ * @Version 1.0 (last update 23.08.2016)
  */
  
 namespace App\Controller;
@@ -12,28 +12,75 @@ use Cake\Controller\Controller;
 use Cake\ORM\TableRegistry;
 
 class WorksController extends AppController {
-
+    // controller variables
+    public $paginate    = [
+        'limit'     => 25,
+        'order'     => [
+            'title', 'year_of_publishing', 'year_of_publishing_greater_null' => 'asc'
+        ]
+    ];
+    
+    
+    /**
+     * init all components
+     *
+     * @return void
+     */
 	public function initialize() {
 		parent::initialize();
 		
 		$this->loadComponent('Flash');
-		//$this->loadComponent('JsonToForm');
+        $this->loadComponent('Paginator');
 	}
 	
+    
 	/**
 	 * list all existing works
 	 *
+     * @return void
 	 **/
 	public function index() {
-		//
-		
-		$this->set( 'works', $this->Works->find( 'all' ) );
+	    // load models
+	    $this->loadModel( 'AuthorsWorks' );
+        $this->loadModel( 'Authors' );
+	    
+		// init variables
+		$works                = array();
+        
+        foreach( $this->paginate() as $work ) {
+            // init extra attribute
+            $work->authors        = array();
+            
+            // get with works linked author ids
+            $authorsWork        = $this->AuthorsWorks->findByWorksId( $work->id );
+            
+            // authors are set?
+            if( $authorsWork->count() > 0 ) {
+                foreach( $authorsWork->toArray() as $authorOfWork ) {
+                    // get author data
+                    $author         = $this->Authors->get( $authorOfWork->authors_id );
+                    
+                    // add author in array
+                    array_push( $work->authors, array( "id" => $author->id, "name" => $author->forename . " " . $author->name ) );
+                }
+            } else {
+                // add default author in array
+                array_push( $work->authors, array( "id" => 0, "name" => "unbekannter Autor" ) );
+            }
+            
+            // put work entity in works set
+            array_push( $works, $work );
+        }
+        
+        // set view variable
+		$this->set( 'works', $works );
 	}
 	
 	
 	/**
 	 * create a new works
 	 *
+     * @return void
 	 **/
 	public function create() {	
 		// load required models
@@ -50,15 +97,7 @@ class WorksController extends AppController {
 		$this->set( 'mediatypArray', $mediatyps );
 		
 		// date are submitted?
-		if( $this->request->is( "post" ) ) {
-/*
-			echo '<pre>';
-			print_r($this->request->data);
-			echo '</pre>';
-*/
-			
-			//echo $this->request->data["authorname"][1];
-			
+		if( $this->request->is( "post" ) ) {			
 			// create new works object
 			$works		= $this->Works->NewEntity();
 			
@@ -87,7 +126,6 @@ class WorksController extends AppController {
 			
 			// save new work object in table and get his id
 			if( $this->Works->save( $works ) ) {
-				//echo $works->id;
 			}
 			
 			// array for author objects
@@ -132,8 +170,8 @@ class WorksController extends AppController {
 				
 				
 				// special cases
-				// ToDo: $numAuthorByNameAndForename > 1
-				// ToDo: $numAuthorByNameAndForename == 0 && $numAuthorByName > 1
+				// TODO: $numAuthorByNameAndForename > 1
+				// TODO: $numAuthorByNameAndForename == 0 && $numAuthorByName > 1
 				
 				// author isn't saved in database
 				if( $numAuthorByName == 0 && $numAuthorByNameAndForename == 0 ) {
@@ -142,7 +180,7 @@ class WorksController extends AppController {
 					$author->forename		= $this->request->data["authorforename"][$i];
 					
 					// convert birthday and day of death
-					// ToDo: support for other dateformats
+					// TODO: support for other dateformats
 					if( !empty( $this->request->data["authordayofbirth"][$i] ) ) {
 						$temp					= explode( '.', $this->request->data["authordayofbirth"][$i] );
 						$author->born			= $temp[2] . $temp[1] . $temp[0];
@@ -177,61 +215,55 @@ class WorksController extends AppController {
 				$authorToWork->works_id		= $works->id;
 				
 				$this->authors_works->save( $authorToWork );
-				
-				/*
-				// debugging
-				echo '<pre>';
-				print_r( $authorToWork );
-				echo '</pre>';
-				*/
 			}
-			
-			/*
-			// debugging
-			echo '<pre>';
-			print_r($authors);
-			echo '</pre>';
-			*/
 		}
-		
-		/*
-		// JSON string
-		$mtJson		= '[';
-		
-		foreach( $mediatyps as $mt ) {			
-			// build string
-			$mtJson		.= '{"id":' . $mt["id"] . ',"description":"' . $mt["description"] . '","objectmodel_media":' . $mt['objectmodel_media'] . '},';
-		}
-		
-		// remove last char and set JSON array closed char
-		$mtJson		= substr( $mtJson, 0, strlen( $mtJson )-1 ) . ']';
-		
-		$this->set( 'mediatypJson', $mtJson );
-		*/
 	}
 	
 	
 	/**
+	 * display details of work
 	 *
-	 *
+     * @return void
 	 **/
 	public function view( $id ) {
+	    // get data of work from database
+	    $this->Works->get( $id );
+        
+        // set view variable
+        $this->set( 'works', $works );
 	}
 	
 	
 	/**
 	 * edit an existing works
 	 *
+     * @return void
 	 **/
 	public function edit( $id ) {
+	    // TODO
+        // TODO: authorization check
+        $this->redirect( [ 'action' => 'index' ] );
 	}
-	
+    
+    
+    /**
+     * delete an existing work entry
+     * 
+     * @return void
+     */
+	public function delete( $id ) {
+	    // TODO
+        // TODO: authorization check
+        $this->redirect( [ 'action' => 'index' ] );
+	}
 	
 	/**
 	 * return all works where including the search expression
 	 *
+     * @return void
 	 **/
 	public function search( $expr ) {
+	    // TODO
 	}
 }
 ?>

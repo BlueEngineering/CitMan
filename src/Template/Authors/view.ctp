@@ -25,7 +25,7 @@
 				<!-- /preview button -->
 				
 				<!-- edit button -->
-				<?=
+				<!--?=
 					$this->Html->link(
 						$this->Html->tag(
 							'span',
@@ -39,11 +39,11 @@
 						'escape'		=> false,
 						'class'			=> 'btn btn-sm btn-warning'
 					])
-				?>
+				?-->
 				<!-- /edit button -->
 				
 				<!-- delete button -->
-				<?=
+				<!--?=
 					$this->Html->link(
 						$this->Html->tag(
 							'span',
@@ -57,7 +57,7 @@
 						'escape'		=> false,
 						'class'			=> 'btn btn-sm btn-danger'
 					])
-				?>
+				?-->
 				<!-- /delete button -->
 			</div>
 		</div>

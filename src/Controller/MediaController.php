@@ -24,6 +24,8 @@ class MediaController extends AppController {
 	 * @return array with name and description of existing media
 	 **/
 	public function index() {
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
+        
 		// set all called media datasets in view variable
 		$this->set( 'media', $this->Media->find( 'all' ) );
 	}
@@ -35,6 +37,8 @@ class MediaController extends AppController {
 	 * @return array( bool as result of process, string with errormessage )
 	 **/
 	public function create() {
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
+        
 		// create media object instance
 		$media		= $this->Media->newEntity();
 		
@@ -97,6 +101,8 @@ class MediaController extends AppController {
 	 * @return array( bool with result of process, string with errormessage )
 	 **/
 	public function edit( $id = null ) {
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
+        
 		// load dataset from database
 		$media			= $this->Media->get( $id );
 		
@@ -173,6 +179,8 @@ class MediaController extends AppController {
 	 * @return array( bool with result of process, string with errormessage )
 	 **/
 	public function delete( $id = null ) {
+        // TODO
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
 	}
 	
 	
@@ -184,6 +192,8 @@ class MediaController extends AppController {
 	 * @return string with HTML form code
 	 **/
 	public function preview( $str = null ) {
+        // TODO
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
 	}
 	
 	
@@ -195,6 +205,8 @@ class MediaController extends AppController {
 	 * @return array with dataset of given media
 	 **/
 	public function view( $id = null ) {
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
+        
 		//
 		$media							= $this->Media->get( $id );
 		$media["objectmodel_media"]		= json_decode( $media["objectmodel_media"] );
@@ -216,6 +228,8 @@ class MediaController extends AppController {
 	 * @return string with name of given media
 	 **/
 	public function getName( $id = null ) {
+        // TODO
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
 	}
 	
 	
@@ -225,6 +239,8 @@ class MediaController extends AppController {
 	 * @return array( int with id of media dataset, string with name of media dataset )
 	 **/
 	public function getList() {
+        // TODO
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
 	}
 	
 	
@@ -236,6 +252,8 @@ class MediaController extends AppController {
 	 * @return array with media attribut informations
 	 **/
 	public function getMediaStruct( $id = null ) {
+        // TODO
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
 	}
 	
 	
@@ -247,6 +265,8 @@ class MediaController extends AppController {
 	 * @return array with citation attribut informations
 	 **/
 	public function getCitStruc( $id = null ) {
+        // TODO
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
 	}
 }
 ?>

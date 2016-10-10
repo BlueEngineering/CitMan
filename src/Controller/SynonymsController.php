@@ -11,5 +11,66 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 
 class SynonymsController extends AppController {
+	/**
+	 *
+	 *
+	 * @return void
+	 */
+	public function initialize() {
+		parent::initialize();
+	}
+	
+	
+	/**
+	 * 
+	 */
+	public function index() {
+        // TODO
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
+	}
+	
+	
+	/**
+	 * 
+	 */
+	public function create() {
+        // TODO
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
+	}
+	
+	
+	/**
+	 * 
+	 */
+	public function edit( $id ) {
+        // TODO
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
+	}
+	
+	
+	/**
+	 * 
+	 */
+	public function delete() {
+		// TODO
+		$this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
+	}
+	
+	
+	/**
+	 * 
+	 */
+	public function view( $id ) {
+        // TODO
+        $this->redirect( [ 'controller' => 'citations', 'action' => 'index' ] );
+	}
+	
+	
+	/**
+	 * 
+	 */
+	public function search( $expr ) {
+		// TODO
+	}
 }
 ?>

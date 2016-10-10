@@ -63,102 +63,311 @@ $cakeTitle			= "Citation Manager";
 				</div>
 				
 				<div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
-					<ul class="nav navbar-nav">
+					
+					<?php
+					/*
+					if( $this->Auth->user() ) {
+						echo '<div class="navbar-form navbar-left">I\'m in Babe!</div>';
+					} else {
+						echo $this->element( 'formTags' );
+					}
+					*/
+					
+					//echo $this->element( 'menu/formLogin' );
+					?>
+					
+					<!--span class="glyphicon glyphicon-user"></span-->
+					
+					<ul class="nav navbar-nav navbar-left">
 					
 						<!--li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li-->
-						
-						<!-- citation menu -->
-						<li>
-							<?=
-								$this->Html->link( 'Neues Zitat', [
-									'controller'	=> 'citations',
-									'action'		=> 'create'
-								] )
-							?>
-						</li>
-						<!-- /citation menu -->
-						
-						<!-- overview menu -->
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Listen <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li>
-									<?=
-										$this->Html->link( 'Autoren', [
-											'controller'	=> 'authors',
-											'action'		=> 'index'
-										] )
-									?>
-								</li>
-								<li>
-									<?=
-										$this->Html->link( 'Werke', [
-											'controller'	=> 'works',
-											'action'		=> 'index'
-										] )
-									?>
-								</li>
-								<!--li>
-									<?=
-										$this->Html->link( 'Tags', [
-											'controller'	=> 'tags',
-											'action'		=> 'index'
-										] )
-									?>
-								</li-->
-								<li>
-									<?=
-										$this->Html->link( 'Zitate', [
-											'controller'	=> 'citations',
-											'action'		=> 'index'
-										] )
-									?>
-								</li>
-								<!--li class="divider" role="separator"></li>
-								<li>
-									<?=
-										$this->Html->link( 'Medientypen (nur Admins)', [
-											'controller'	=> 'media',
-											'action'		=> 'index'
-										] )
-									?>
-								</li-->
-							</ul>
-						</li>
-						<!-- /overview menu -->
-						
+												
 						<!-- authors menu -->
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Eintragen <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<span class="glyphicon glyphicon-user"></span>
+								Autoren
+								<span class="caret"></span>
+							</a>
 							<ul class="dropdown-menu">
 								<li>
 									<?=
-										$this->Html->link( 'Neue*r Autor*in', [
-											'controller'	=> 'authors',
-											'action'		=> 'create'
-										] )
+										$this->Html->link(
+											$this->Html->tag(
+												'span',
+												'',
+												[
+													'class'			=> 'glyphicon glyphicon-list'
+												]
+											) . ' Übersicht',
+											[
+												'controller'	=> 'authors',
+												'action'		=> 'index'
+											],
+											[
+												'class'			=> '',
+												'escape'		=> false
+											]
+										)
 									?>
 								</li>
+								
+								<li class="divider" role="separator"></li>
+								
 								<li>
 									<?=
-										$this->Html->link( 'Neues Werk anlegen', [
-											'controller'	=> 'works',
-											'action'		=> 'create'
-										] )
+										$this->Html->link(
+											$this->Html->tag(
+												'span',
+												'',
+												[
+													'class'			=> 'glyphicon glyphicon-pencil'
+												]
+											) . 'AutorIn anlegen',
+											[
+												'controller'	=> 'authors',
+												'action'		=> 'create'
+											],
+											[
+												'class'			=> '',
+												'escape'		=> false
+											]
+										)
 									?>
 								</li>
-								<!--li class="divider" role="separator"></li>
-								<li>
-									<?=
-										$this->Html->link( 'Neuen Medientyp anlegen (nur Admins)', [
-											'controller'	=> 'media',
-											'action'		=> 'create'
-										] )
-									?>
-								</li-->
 							</ul>
 						</li>
-						<!-- /authors menu -->
+						<!-- /.authors menu -->
+						
+						<!-- works menu -->
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									<span class="glyphicon glyphicon-book"></span>
+									Werke
+									<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<?=
+											$this->Html->link(
+												$this->Html->tag(
+													'span',
+													'',
+													[
+														'class'			=> 'glyphicon glyphicon-list'
+													]
+												) . ' Übersicht',
+												[
+													'controller'	=> 'works',
+													'action'		=> 'index'
+												],
+												[
+													'class'			=> '',
+													'escape'		=> false
+												]
+											)
+										?>
+									</li>
+									
+									<li class="divider" role="separator"></li>
+									
+									<li>
+										<?=
+											$this->Html->link(
+												$this->Html->tag(
+													'span',
+													'',
+													[
+														'class'			=> 'glyphicon glyphicon-pencil'
+													]
+												) . ' Werk anlegen',
+												[
+													'controller'	=> 'works',
+													'action'		=> 'create'
+												],
+												[
+													'class'			=> '',
+													'escape'		=> false
+												]
+											)
+										?>
+									</li>
+								</ul>
+							</li>
+						<!-- /.works menu -->
+						
+						<!-- citations menu -->
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									<span class="glyphicon glyphicon-comment"></span>
+									Zitate
+									<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<?=
+											$this->Html->link(
+												$this->Html->tag(
+													'span',
+													'',
+													[
+														'class'			=> 'glyphicon glyphicon-list'
+													]
+												) . ' Übersicht',
+												[
+													'controller'	=> 'citations',
+													'action'		=> 'index'
+												],
+												[
+													'class'			=> '',
+													'escape'		=> false
+												]
+											)
+										?>
+									</li>
+									
+									<li class="divider" role="separator"></li>
+									
+									<li>
+										<?=
+											$this->Html->link(
+												$this->Html->tag(
+													'span',
+													'',
+													[
+														'class'			=> 'glyphicon glyphicon-pencil'
+													]
+												) . ' Zitat anlegen',
+											[
+												'controller'	=> 'citations',
+												'action'		=> 'create'
+											],
+											[
+												'class'			=> '',
+												'escape'		=> false
+											] )
+										?>
+									</li>
+								</ul>
+							</li>
+						<!-- /.citations menu -->
+						
+						<!-- administrator menu items -->
+						<!-- tags menu -->
+						<!--
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<span class="glyphicon glyphicon-tags"></span>
+								Tags
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<?=
+										$this->Html->link(
+											$this->Html->tag(
+												'span',
+												'',
+												[
+													'class'			=> 'glyphicon glyphicon-list'
+												]
+											) . ' Übersicht',
+											[
+												'controller'	=> 'tags',
+												'action'		=> 'index'
+											],
+											[
+												'class'			=> '',
+												'escape'		=> false
+											]
+										)
+									?>
+								</li>
+								
+								<li class="divider" role="separator"></li>
+								
+								<li>
+									<?=
+										$this->Html->link(
+											$this->Html->tag(
+												'span',
+												'',
+												[
+													'class'			=> 'glyphicon glyphicon-pencil'
+												]
+											) . ' Tag anlegen',
+											[
+												'controller'	=> 'tags',
+												'action'		=> 'create'
+											],
+											[
+												'class'			=> '',
+												'escape'		=> false
+											]
+										)
+									?>
+								</li>
+								
+								<li>
+									<?=
+									$this->Html->link(
+										$this->Html->tag(
+											'span',
+											'',
+											[
+												'class'				=> 'glyphicon glyphicon-pencil'
+											]
+										) . ' Synonym anlegen',
+										[
+											'controller'		=> 'synonyms',
+											'action'			=> 'create'
+										],
+										[
+											'class'				=> '',
+											'escape'			=> false
+										]
+									)
+									?>
+								</li>
+								
+							</ul>
+						</li>
+						-->
+						<!-- /.tags menu -->
+						
+						<!-- mediatyps menu -->
+						<!-- 
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									<span class="glyphicon glyphicon-book"></span>
+									Medienarten
+									<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<?=
+											$this->Html->link( 'Medientypen (nur Admins)', [
+												'controller'	=> 'media',
+												'action'		=> 'index'
+											] )
+										?>
+									</li>
+									
+									<li class="divider" role="separator"></li>
+									
+									<li>
+										<?=
+											$this->Html->link( 'Neuen Medientyp anlegen (nur Admins)', [
+												'controller'	=> 'media',
+												'action'		=> 'create'
+											] )
+										?>
+									</li>
+								</ul>
+							</li>
+						-->
+						<!-- /.mediatyps menu -->
+						<!-- /.administrator menu items -->
 						
 						<!-- export menu -->
 						<!--li class="dropdown">
@@ -168,18 +377,297 @@ $cakeTitle			= "Citation Manager";
 								<li><a href="#">Bibtex Export</a></li>
 							</ul>
 						</li-->
-						<!-- /export menu -->
-						
-						<!-- userspecific -->
-						<!-- /userspecific -->
-						
+						<!-- /.export menu -->
 					</ul>
-				</div>
-				
-				<!--div class="navbar-header">
-					Suchfeld
-				</div-->
-				
+						
+					<!-- quicklinks -->
+					<ul class="nav navbar-nav navbar-left">
+						<li>
+						<p class="navbar-text"><strong class="text-info">Quicklinks:</strong></p>
+						</li>
+						<!-- citation menu -->
+						<li>
+							<?=
+								$this->Html->link(
+									$this->Html->tag( 'span',
+										'',
+										[
+											'class'		=> 'glyphicon glyphicon-pencil'
+										]
+									) . ' Neues Zitat', [
+									'controller'	=> 'citations',
+									'action'		=> 'create'
+								], [
+									'escape'		=> false
+								] )
+							?>
+						</li>
+						<!-- /citation menu -->
+					</ul>
+					<!-- /.quicklinks -->
+					
+					<!-- searchbar -->
+					<!--
+					<form class="navbar-form navbar-right" role="search" method="post" action="">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon"><span class="glyphicon glyphicon-search"></div>
+								<input type="text" class="form-control" name="" id="" placeholder="Suchen nach ..." />
+							</div>
+							<button type="submit" class="btn btn-default">Suchen</button>
+						</div>
+					</form>
+					-->
+					<!-- /.searchbar -->
+					
+					<!-- userspecific -->
+					<ul class="nav navbar-nav navbar-right">
+						<!-- usermenu variation A (anonymous user) -->
+						<li>
+							<?=
+							$this->Html->link(
+								$this->Html->tag(
+									'span',
+									'',
+									[
+										'class'			=> 'glyphicon glyphicon-list-alt'
+									]
+								)
+								. ' Vorgemerkte Zitate '
+								. $this->Html->tag(
+									'span',
+									$numOfFavListItems,
+									[
+										'class'			=> 'badge'
+									]
+								),
+								[
+									'controller'	=> 'favoritlists',
+									'action'		=> 'export',
+									'0'
+								],
+								[
+									'class'			=> '',
+									'escape'		=> false
+								]
+							)
+							?>
+						</li>
+						<!-- /.usermenu variation A (anonymous user) -->
+						
+						<!-- usermenu variation B (user is logged) -->
+						<!--
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="flase">
+								<span class="glyphicon glyphicon-list-alt"></span>
+								Vorgemerkte Zitate
+								<span class="badge"><?= $exampleNum ?></span>
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> <?= $exampleName ?> <span class="badge"><?= $exampleNum ?></span></a></li>
+								<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> {{NAME_SECOND_FAV_LIST}} <span class="badge">100</span></a></li>
+								<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> {{NAME_THIRD_FAV_LIST}} <span class="badge">38</span></a></li>
+								<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> {{NAME_FOURTH_FAV_LIST}} <span class="badge">15</span></a></li>
+								<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> {{NAME_FIFTH_FAV_LIST}} <span class="badge">0</span></a></li>
+							</ul>
+						</li>
+						-->
+						<!-- /.usermenu variation B (user is logged) -->
+						
+						<!-- 
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<span class="glyphicon glyphicon-user"></span>
+								{{BENUTZERNAME}}
+								<span class="caret"></span>
+							</a>
+							
+							<ul class="dropdown-menu">
+								<!-- usermenu variation A (anonymous user) -->
+								<!--
+								<li>
+									<?=
+									$this->Html->link(
+										$this->Html->tag(
+											'span',
+											'',
+											[
+												'class'			=> 'glyphicon glyphicon-log-in'
+											]
+										) . ' Login',
+										[
+											'controller'	=> 'users',
+											'action'		=> 'login'
+										],
+										[
+											'class'			=> '',
+											'escape'		=> false
+										]
+									)
+									?>
+								</li>
+								-->
+								<!-- /.usermenu variation A (anonymous user) -->
+								
+								<!-- usermenu variation B (user is logged) -->
+								<!--
+								<li>
+									<?=
+									$this->Html->link(
+										$this->Html->tag(
+											'span',
+											'',
+											[
+												'class'			=> 'glyphicon glyphicon-credit-card'
+											]
+										) . ' Profil',
+										[
+											'controller'	=> 'users',
+											'action'		=> 'editProfil'
+										],
+										[
+											'class'			=> '',
+											'escape'		=> false
+										]
+									)
+									?>
+								</li>
+								
+								<li>
+									<?=
+									$this->Html->link(
+										$this->Html->tag(
+											'span',
+											'',
+											[
+												'class'			=> 'glyphicon glyphicon-wrench'
+											]
+										) . ' Einstellungen',
+										[
+											'controller'	=> 'users',
+											'action'		=> 'settings'
+										],
+										[
+											'class'			=> '',
+											'escape'		=> false
+										]
+									)
+									?>
+								</li>
+								
+								<li class="divider" role="separator"></li>
+								
+								<li>
+									<?=
+									$this->Html->link(
+										$this->Html->tag(
+											'span',
+											'',
+											[
+												'class'			=> 'glyphicon glyphicon-list'
+											]
+										) . ' Favoritenlisten verwalten',
+										[
+											'controller'	=> 'favoritlists',
+											'action'		=> 'index'
+										],
+										[
+											'class'			=> '',
+											'escape'		=> false
+										]
+									)
+									?>
+								</li>
+								
+								<li>
+									<?=
+									$this->Html->link(
+										$this->Html->tag(
+											'span',
+											'',
+											[
+												'class'			=> 'glyphicon glyphicon-save-file'
+											]
+										) . ' Favoritenliste exportieren',
+										[
+											'controller'	=> 'favoritlists',
+											'action'		=> 'export'
+										],
+										[
+											'class'			=> '',
+											'escape'		=> false
+										]
+									)
+									?>
+								</li>
+								
+								<li>
+									<?=
+									$this->Html->link(
+										$this->Html->tag(
+											'span',
+											'',
+											[
+												'class'		=> 'glyphicon glyphicon-pencil'
+											]
+										) . ' Favoritenliste anlegen',
+										[
+											'controller'	=> 'favoritlists',
+											'action'		=> 'create'
+										],
+										[
+											'class'			=> '',
+											'escape'		=> false
+										]
+									)
+									?>
+								</li>
+								-->
+								
+								<!--
+								<li class="divider" role="separator"></li>
+								-->
+								<!-- /.usermenu variation B (user is logged) -->
+								
+								<!-- irrespective of user status -->
+								<!--
+								<li class="separator" role="separator"></li>
+								-->
+								<!-- /.irrespective of user status -->
+								
+								<!-- usermenu variation B (user is logged) -->
+								<!--
+								<li>
+									<?=
+									$this->Html->link(
+										$this->Html->tag(
+											'span',
+											'',
+											[
+												'class'			=> 'glyphicon glyphicon-log-out'
+											]
+										) . ' Logout',
+										[
+											'controller'	=> 'users',
+											'action'		=> 'logout'
+										],
+										[
+											'class'			=> '',
+											'escape'		=> false
+										]
+									)
+									?>
+								</li>
+								-->
+								<!-- /.usermenu variation B (user is logged) -->
+<!--
+							</ul>
+						</li>
+-->
+					</ul>
+					<!-- /.userspecific -->
+				</div>				
 			</div>
 		</nav>
 		<!-- /navigation -->
@@ -202,6 +690,16 @@ $cakeTitle			= "Citation Manager";
 				</div>
 			</div>
 			<!-- /footer -->
+			
+			<!-- modal -->
+			<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			  <div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			      ...
+			    </div>
+			  </div>
+			</div>
+			<!-- /.modal --> 
 			
 		</div>
 	</body>

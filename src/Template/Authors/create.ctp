@@ -21,7 +21,7 @@
 		
 		<!-- author form -->
 		<div class="col-md-12 col-lg-12">
-			<?= $this->element( 'formAuthor' ) ?>
+			<?= $this->element( 'authors/authorCreate' ) ?>
 		</div>
 		<!-- /author form -->
 		
